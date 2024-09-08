@@ -1,0 +1,271 @@
+@font-face {
+  font-family: 'ChicagoFLF';
+  src: url('../public/fonts/ChicagoFLF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.App {
+  font-family: 'ChicagoFLF', 'Courier New', monospace;
+  background-color: #858cb9;
+  color: #000;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.desktop {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  padding-top: 40px; /* Add padding to account for the menu bar */
+  z-index: 1;
+}
+
+.hard-disk-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+  font-family: 'ChicagoFLF', 'Courier New', monospace;
+  z-index: 10;
+  padding: 10px;
+  transition: transform 0.3s;
+}
+
+.hard-disk-icon:hover {
+  transform: scale(1.1);
+}
+
+.hard-disk-icon .icon-emoji {
+  font-size: 48px;
+  margin-bottom: 5px;
+}
+
+.hard-disk-icon .icon-text {
+  font-size: 12px;
+  text-align: center;
+  max-width: 64px;
+  word-wrap: break-word;
+}
+
+.file-explorer {
+  position: fixed;
+  top: 40px; /* Adjust based on your menu bar height */
+  left: 10%;
+  width: 80%;
+  height: calc(80% - 40px);
+  z-index: 1000;
+}
+
+.app-container {
+  position: fixed;
+  top: 40px; /* Adjust based on your menu bar height */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1100; /* Increase this value */
+  pointer-events: none; /* This allows clicks to pass through to elements below */
+}
+
+.window {
+  position: absolute;
+  background-color: #f0f0f0;
+  border: 1px solid #000;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 1100;
+}
+
+.menu-bar {
+  z-index: 1000;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #000;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.window {
+  pointer-events: auto; /* This allows interaction with the window */
+}
+
+/* Center windows on desktop */
+@media (min-width: 769px) {
+  .window:not(.fileexplorer):not(.iframe-app) {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+  }
+
+  .window.iframe-app {
+    top: 40px !important; /* Ensure iframe apps start below the menu bar */
+    left: 50% !important;
+    transform: translateX(-50%);
+    height: calc(80vh - 40px) !important; /* Adjust height to account for menu bar */
+  }
+}
+
+/* Full viewport on mobile */
+@media (max-width: 768px) {
+  .window:not(.fileexplorer) {
+    width: 100% !important;
+    height: calc(100% - 40px) !important;
+    top: 40px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+  }
+
+  .hard-disk-icon {
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999; /* Just below the file explorer on mobile */
+  }
+
+  .file-explorer {
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 40px);
+  }
+}
+
+.window-header {
+  background-color: #000080;
+  color: #fff;
+  padding: 5px;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1300; /* Ensure the header is above the content */
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1400; /* Ensure the close button is above everything else */
+  padding: 5px;
+  line-height: 1;
+}
+
+.window-content {
+  height: calc(100% - 30px); /* Adjust based on your header height */
+  overflow: auto;
+  position: relative;
+}
+
+.resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  cursor: se-resize;
+}
+
+.resize-handle {
+  display: none;
+}
+
+.hard-disk-icon {
+  top: 50px;
+  right: 10px;
+}
+
+/* Iframe apps styles */
+.window.iframe-app {
+  width: 80%;
+  height: 80%;
+}
+
+@media (max-width: 768px) {
+  .window.iframe-app {
+    width: 100% !important;
+    height: calc(100% - 40px) !important;
+  }
+}
+
+/* Native app sizes */
+.window.calcuwulator,
+.window.calendar,
+.window.notepad,
+.window.paint,
+.window.memoji-minesweeper {
+  width: 400px;
+  height: 500px;
+}
+
+/* Global rule for iframe apps on desktop */
+@media (min-width: 769px) {
+  .window.iframe-app {
+    width: 80vw !important;
+    height: 80vh !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    position: fixed !important;
+  }
+
+  .window.iframe-app .window-content {
+    width: 100%;
+    height: calc(100% - 30px); /* Adjust based on your header height */
+  }
+
+  .window.iframe-app iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
+
+/* ... (rest of the styles remain the same) */
+
+.stickies-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1500;
+  pointer-events: none;
+}
+
+.window.desktop-offset {
+  margin-top: 30px;
+}
+
+@media (min-width: 769px) {
+  .window.desktop-offset {
+    top: 50px !important;
+    transform: translate(-50%, 0) !important;
+  }
+}
+
+/* ... (keep any additional styles) */
+
+.window.memojiminesweeper {
+  width: auto !important;
+  height: auto !important;
+}
+
+@media (min-width: 769px) {
+  .window.memojiminesweeper {
+    top: 50px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
+
+/* ... (keep other styles) */

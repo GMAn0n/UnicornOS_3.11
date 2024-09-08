@@ -1,0 +1,78 @@
+.stickies-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 2000;
+}
+
+.sticky {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  display: flex;
+  flex-direction: column;
+  z-index: 2000;
+  background-color: #ffd700; /* Default color, will be overridden by inline style */
+}
+
+.sticky-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+}
+
+.close-sticky {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.close-sticky:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.sticky textarea {
+  flex-grow: 1;
+  border: none;
+  background: transparent;
+  resize: none;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.sticky textarea:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .sticky {
+    width: 150px;
+    height: 150px;
+  }
+
+  .sticky textarea {
+    font-size: 12px;
+  }
+
+  .close-sticky {
+    font-size: 16px;
+  }
+}
+
+/* ... (rest of the styles) */

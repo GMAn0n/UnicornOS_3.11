@@ -1,0 +1,51 @@
+.black-market-v3 {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.black-market-v3 .window-content {
+  padding: 0;
+  height: calc(100% - 30px); /* Adjust based on your header height */
+}
+
+.black-market-v3 iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.black-market-v3-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.black-market-v3-iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+}
+
+.window.blackmarketv3 .window-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.window.blackmarketv3 .window-content {
+  flex: 1;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .window.blackmarketv3.fullscreen-mobile {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+}

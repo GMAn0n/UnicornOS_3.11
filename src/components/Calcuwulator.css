@@ -1,0 +1,319 @@
+.calcuwulator {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.display {
+  font-size: 2em;
+  text-align: right;
+  padding: 10px;
+  background-color: #f0f0f0;
+  margin-bottom: 10px;
+}
+
+.mode-switcher {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.mode-switcher button {
+  flex: 1;
+  margin: 0 5px;
+}
+
+.calcuwulator-buttons {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.main-grid {
+  display: flex;
+  flex-grow: 1;
+}
+
+.number-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  flex: 3;
+}
+
+.operations {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+  flex: 1;
+  margin-left: 5px;
+}
+
+.top-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+/* Adjustments for scientific and financial modes */
+.calcuwulator.scientific .top-row,
+.calcuwulator.financial .top-row {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.calcuwulator.scientific .operations,
+.calcuwulator.financial .operations {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.calcuwulator-display {
+  background-color: #fff;
+  padding: 10px;
+  text-align: right;
+  font-size: 24px;
+  border-bottom: 1px solid #ddd;
+}
+
+.mode-switcher {
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+  background-color: #e0e0e0;
+}
+
+.mode-switcher button {
+  padding: 5px 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.mode-switcher button:hover {
+  background-color: #f0f0f0;
+}
+
+.calcuwulator-buttons {
+  padding: 5px;
+}
+
+.main-grid {
+  display: flex;
+}
+
+.number-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  flex: 3;
+}
+
+.number-pad .zero {
+  grid-column: span 2;
+}
+
+.operations {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 3px;
+  flex: 1;
+  margin-left: 3px;
+}
+
+.calcuwulator-buttons button {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #000;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.calcuwulator-buttons button:hover {
+  background-color: #e0e0e0;
+}
+
+.calcuwulator-buttons button:active {
+  background-color: #d0d0d0;
+}
+
+/* Adjustments for different modes */
+.calcuwulator.scientific .top-row,
+.calcuwulator.financial .top-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 10px 5px;
+  padding: 0 5px;
+}
+
+.calcuwulator.scientific .top-row button,
+.calcuwulator.financial .top-row button {
+  flex: 1;
+  padding: 12px 8px;
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: #e0e0e0;
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+
+.calcuwulator.scientific .top-row button:hover,
+.calcuwulator.financial .top-row button:hover {
+  background-color: #d0d0d0;
+}
+
+.calcuwulator.scientific .top-row button:active,
+.calcuwulator.financial .top-row button:active {
+  background-color: #c0c0c0;
+}
+
+.calcuwulator.scientific .operations,
+.calcuwulator.financial .operations {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.simple-calculator .main-grid {
+  display: flex;
+}
+
+.simple-calculator .number-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  flex: 3;
+}
+
+.simple-calculator .number-pad .zero {
+  grid-column: span 2;
+}
+
+.simple-calculator .operations {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3px;
+  flex: 1;
+  margin-left: 3px;
+}
+
+.simple-calculator .operations button:last-child {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Adjustments for scientific and financial calculators */
+.calcuwulator.scientific .calcuwulator-buttons,
+.calcuwulator.financial .calcuwulator-buttons {
+  font-size: 14px;
+}
+
+.calcuwulator.scientific .calcuwulator-buttons button,
+.calcuwulator.financial .calcuwulator-buttons button {
+  padding: 8px 4px;
+  font-size: 14px;
+}
+
+.calcuwulator.scientific .top-row button,
+.calcuwulator.financial .top-row button {
+  padding: 12px 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.calcuwulator.scientific .calcuwulator-buttons,
+.calcuwulator.financial .calcuwulator-buttons {
+  font-size: 14px;
+}
+
+.calcuwulator.scientific .calcuwulator-buttons button,
+.calcuwulator.financial .calcuwulator-buttons button {
+  padding: 8px 4px;
+  font-size: 14px;
+}
+
+.calcuwulator.scientific .top-row button,
+.calcuwulator.financial .top-row button {
+  padding: 12px 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Increase the overall size of the calculator for scientific and financial modes */
+.calcuwulator.scientific,
+.calcuwulator.financial {
+  width: 450px;
+}
+
+/* Adjust the main grid layout for scientific and financial modes */
+.calcuwulator.scientific .main-grid,
+.calcuwulator.financial .main-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 8px;
+  padding: 0 5px;
+}
+
+.calcuwulator.scientific .number-pad,
+.calcuwulator.financial .number-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.calcuwulator.scientific .operations,
+.calcuwulator.financial .operations {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .window.calcuwulator.fullscreen-mobile {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+}
+
+.calcuwulator {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.display {
+  background-color: #f0f0f0;
+  padding: 10px;
+  font-size: 24px;
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.keypad button {
+  padding: 10px;
+  font-size: 18px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.keypad button:hover {
+  background-color: #d0d0d0;
+}

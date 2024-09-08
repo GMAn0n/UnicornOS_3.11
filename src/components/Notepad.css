@@ -1,0 +1,28 @@
+.notepad {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.notepad-textarea {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  padding: 10px;
+  font-family: 'ChicagoFLF', 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.notepad-textarea:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .window.notepad.fullscreen-mobile {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+}

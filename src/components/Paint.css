@@ -1,0 +1,40 @@
+.paint {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.paint-controls {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.paint-controls input,
+.paint-controls button {
+  margin: 0 5px;
+}
+
+.paint canvas {
+  flex-grow: 1;
+  background-color: white;
+  cursor: crosshair;
+}
+
+@media (max-width: 768px) {
+  .window.paint.fullscreen-mobile {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+  
+  .paint-controls {
+    flex-wrap: wrap;
+  }
+  
+  .paint-controls input,
+  .paint-controls button {
+    margin: 5px;
+  }
+}

@@ -1,0 +1,14 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+/* Ensure no unexpected margins or paddings are affecting layout */
+* {
+  box-sizing: border-box;
+}

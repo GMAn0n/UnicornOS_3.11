@@ -1,0 +1,10 @@
+.games .window-content {
+  padding: 0;
+  height: calc(100% - 30px); /* Adjust based on your header height */
+}
+
+.games iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
