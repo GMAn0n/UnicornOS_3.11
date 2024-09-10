@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { ResizableWindow } from './ResizableWindow';
-import { ref, push, onValue, set, DataSnapshot, query, orderByChild, limitToLast } from 'firebase/database';
+import ResizableWindow from './ResizableWindow';
+import { ref, push, onValue, set } from 'firebase/database';
 import { database } from '../firebaseConfig';
 import './Tetris.css';
 
@@ -9,6 +9,7 @@ interface TetrisProps {
   className?: string;
   style?: React.CSSProperties;
   isIframeApp?: boolean;
+  onFocus: () => void;
 }
 
 const BOARD_WIDTH = 10;
@@ -42,7 +43,7 @@ const COLORS: { [key in TetrominoType]: string } = {
   'L': 'orange'
 };
 
-export default function Tetris({ onClose, className, style, isIframeApp }: TetrisProps): JSX.Element {
+export default function Tetris({ onClose, className, style, isIframeApp, onFocus }: TetrisProps): JSX.Element {
   const [board, setBoard] = useState<(TetrominoType | null)[][]>(
     Array(BOARD_HEIGHT).fill(null).map(() => Array(BOARD_WIDTH).fill(null))
   );
@@ -90,10 +91,10 @@ export default function Tetris({ onClose, className, style, isIframeApp }: Tetri
       setUserHighScore(parseInt(savedHighScore));
     }
 
-    const highScoresRef = query(ref(database, 'tetrisHighScores'), orderByChild('score'), limitToLast(15));
+    const highScoresRef = ref(database, 'tetrisHighScores');
     const usedVanityNumbersRef = ref(database, 'usedVanityNumbers');
 
-    const unsubscribe = onValue(highScoresRef, (snapshot: DataSnapshot) => {
+    const unsubscribe = onValue(highScoresRef, (snapshot) => {
       const scores = snapshot.val();
       if (scores) {
         const sortedScores = Object.entries(scores)
@@ -107,7 +108,7 @@ export default function Tetris({ onClose, className, style, isIframeApp }: Tetri
       }
     });
 
-    onValue(usedVanityNumbersRef, (snapshot: DataSnapshot) => {
+    onValue(usedVanityNumbersRef, (snapshot) => {
       const usedNumbers = snapshot.val();
       if (usedNumbers) {
         setUsedVanityNumbers(usedNumbers);
@@ -432,16 +433,16 @@ export default function Tetris({ onClose, className, style, isIframeApp }: Tetri
 
   return (
     <ResizableWindow
-      title={`Tetris - Score: ${score} | Level: ${level} | Lines: ${linesCleared} | Player #${vanityNumber || '???'}`}
+      title="Tetris"
       onClose={onClose}
       appName="tetris"
-      className={`${className} tetris-window`}
+      initialWidth={300}
+      initialHeight={600}
+      className={className}
       style={style}
-      initialWidth={windowSize.width}
-      initialHeight={windowSize.height}
       isIframeApp={isIframeApp}
     >
-      <div className="tetris">
+      <div className="tetris" onClick={onFocus}>
         <div className="tetris-content">
           <div className="tetris-board-container">
             <div className="tetris-board">

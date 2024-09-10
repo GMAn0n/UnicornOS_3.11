@@ -1,0 +1,47 @@
+.resizable-window {
+  position: absolute;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.window-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: #e0e0e0;
+  cursor: move;
+}
+
+.window-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.window-content > *:not(.window-header) {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  color: white;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  .close-button {
+    padding: 15px;
+    font-size: 28px;
+  }
+}

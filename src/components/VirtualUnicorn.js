@@ -1,3 +1,7 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+import { ResizableWindow } from './ResizableWindow';
+import './VirtualUnicorn.css';
+
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -9,9 +13,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import { jsx as _jsx } from "react/jsx-runtime";
-import { ResizableWindow } from './ResizableWindow';
-import './VirtualUnicorn.css';
+
 export default function VirtualUnicorn(_a) {
     var onClose = _a.onClose;
     return (_jsx(ResizableWindow, __assign({ title: "Virtual Unicorn", onClose: onClose, appName: "virtualunicorn", initialWidth: 800, initialHeight: 600 }, { children: function (_a) {

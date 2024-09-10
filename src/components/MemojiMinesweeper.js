@@ -1,3 +1,8 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import ResizableWindow from './ResizableWindow';
+import './MemojiMinesweeper.css';
+import { database, ref, set, push, onValue } from '../firebaseConfig';
+
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -9,6 +14,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
         if (ar || !(i in from)) {
@@ -18,15 +24,11 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState, useEffect, useCallback } from 'react';
-import { ResizableWindow } from './ResizableWindow';
-import './MemojiMinesweeper.css';
-import { ref, onValue, set, push } from 'firebase/database';
-import { database } from '../firebaseConfig';
-var GRID_SIZE = 18;
-var MINE_COUNT = 40;
-var EMOJIS = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇'];
+
+const GRID_SIZE = 18;
+const MINE_COUNT = 40;
+const EMOJIS = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇'];
+
 export default function MemojiMinesweeper(_a) {
     var onClose = _a.onClose;
     var _b = useState([]), grid = _b[0], setGrid = _b[1];
@@ -37,6 +39,7 @@ export default function MemojiMinesweeper(_a) {
     var _g = useState(false), isMobile = _g[0], setIsMobile = _g[1];
     var _h = useState({ width: 800, height: 800 }), windowSize = _h[0], setWindowSize = _h[1];
     var _j = useState(false), gameWon = _j[0], setGameWon = _j[1];
+
     var calculateWindowSize = useCallback(function () {
         var cellSize = 30;
         var padding = 150; // Increased padding for controls and header
@@ -44,9 +47,11 @@ export default function MemojiMinesweeper(_a) {
         var height = 800; // Set a static height of 800px
         return { width: width, height: height };
     }, []);
+
     useEffect(function () {
         setWindowSize(calculateWindowSize());
     }, [calculateWindowSize]);
+
     useEffect(function () {
         var checkMobile = function () {
             setIsMobile(window.innerWidth <= 768);
@@ -55,6 +60,7 @@ export default function MemojiMinesweeper(_a) {
         window.addEventListener('resize', checkMobile);
         return function () { return window.removeEventListener('resize', checkMobile); };
     }, []);
+
     var createInitialGrid = useCallback(function () {
         var newGrid = Array(GRID_SIZE).fill(null).map(function () {
             return Array(GRID_SIZE).fill(null).map(function () { return ({
@@ -83,6 +89,7 @@ export default function MemojiMinesweeper(_a) {
         }
         return newGrid;
     }, []);
+
     useEffect(function () {
         console.log('MemojiMinesweeper component mounted');
         var gameRef = ref(database, 'memojiMinesweeper');
@@ -156,6 +163,7 @@ export default function MemojiMinesweeper(_a) {
             }
         };
     }, [createInitialGrid]);
+
     var handleCellClick = useCallback(function (row, col) {
         if (gameOver || gameWon)
             return;
@@ -183,6 +191,7 @@ export default function MemojiMinesweeper(_a) {
             }
         }
     }, [grid, playerId, gameOver, gameWon]);
+
     var revealNeighbors = function (grid, row, col) {
         for (var i = -1; i <= 1; i++) {
             for (var j = -1; j <= 1; j++) {
@@ -201,6 +210,7 @@ export default function MemojiMinesweeper(_a) {
             }
         }
     };
+
     var startNewGame = function () {
         var newGrid = createInitialGrid();
         set(ref(database, 'memojiMinesweeper'), {
@@ -215,17 +225,64 @@ export default function MemojiMinesweeper(_a) {
             setGameWon(false);
         }).catch(function (error) { return console.error('Error starting new game:', error); });
     };
-    return (_jsx(ResizableWindow, __assign({ title: "Multiplayer Memoji Minesweeper", onClose: onClose, appName: "memojiminesweeper", initialWidth: windowSize.width, initialHeight: 800, resizable: false }, { children: _jsxs("div", __assign({ className: "memoji-minesweeper" }, { children: [error && _jsx("div", __assign({ className: "error-message" }, { children: error })), _jsxs("div", __assign({ className: "game-controls" }, { children: [_jsx("div", __assign({ className: "players" }, { children: players.map(function (player) { return (_jsxs("div", __assign({ className: "player", style: { color: player.color } }, { children: ["Player ", player.id === playerId ? '(You)' : ''] }), player.id)); }) })), gameOver && _jsx("div", __assign({ className: "game-over" }, { children: "Game Over! \uD83D\uDCA3" })), gameWon && _jsx("div", __assign({ className: "game-won" }, { children: "You Win! \uD83C\uDF89" })), _jsx("button", __assign({ onClick: startNewGame, className: "new-game-button" }, { children: "New Game" }))] })), grid.length > 0 ? (_jsx("div", __assign({ className: "grid-container" }, { children: _jsx("div", __assign({ className: "grid" }, { children: grid.map(function (row, rowIndex) { return (row.map(function (cell, colIndex) {
-                            var _a;
-                            return (_jsx("button", __assign({ className: "cell ".concat(cell.isRevealed ? 'revealed' : '', " ").concat(gameOver && cell.isMine ? 'mine' : ''), onClick: function () { return handleCellClick(rowIndex, colIndex); }, style: { backgroundColor: cell.playerId ? (_a = players.find(function (p) { return p.id === cell.playerId; })) === null || _a === void 0 ? void 0 : _a.color : '' }, disabled: gameOver || gameWon }, { children: cell.isRevealed
-                                    ? cell.isMine
-                                        ? '💣'
-                                        : cell.neighborMines > 0
-                                            ? cell.neighborMines
-                                            : cell.emoji
-                                    : '' }), "".concat(rowIndex, "-").concat(colIndex)));
-                        })); }) })) }))) : (_jsx("div", { children: "Loading game board..." }))] })) })));
+
+    return (
+        <ResizableWindow
+            title="Multiplayer Memoji Minesweeper"
+            onClose={onClose}
+            appName="memojiminesweeper"
+            initialWidth={windowSize.width}
+            initialHeight={800}
+            resizable={false}
+        >
+            <div className="memoji-minesweeper">
+                {error && <div className="error-message">{error}</div>}
+                <div className="game-controls">
+                    <div className="players">
+                        {players.map(player => (
+                            <div key={player.id} className="player" style={{ color: player.color }}>
+                                Player {player.id === playerId ? '(You)' : ''}
+                            </div>
+                        ))}
+                    </div>
+                    {gameOver && <div className="game-over">Game Over! 💣</div>}
+                    {gameWon && <div className="game-won">You Win! 🏆</div>}
+                    <button onClick={startNewGame} className="new-game-button">
+                        New Game
+                    </button>
+                </div>
+                {grid.length > 0 ? (
+                    <div className="grid-container">
+                        <div className="grid">
+                            {grid.map((row, rowIndex) => (
+                                row.map((cell, colIndex) => (
+                                    <button
+                                        key={`${rowIndex}-${colIndex}`}
+                                        className={`cell ${cell.isRevealed ? 'revealed' : ''} ${gameOver && cell.isMine ? 'mine' : ''}`}
+                                        onClick={() => handleCellClick(rowIndex, colIndex)}
+                                        style={{ backgroundColor: cell.playerId ? players.find(p => p.id === cell.playerId)?.color : '' }}
+                                        disabled={gameOver || gameWon}
+                                    >
+                                        {cell.isRevealed
+                                            ? cell.isMine
+                                                ? '💣'
+                                                : cell.neighborMines > 0
+                                                    ? cell.neighborMines
+                                                    : cell.emoji
+                                            : ''}
+                                    </button>
+                                ))
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <div>Loading game board...</div>
+                )}
+            </div>
+        </ResizableWindow>
+    );
 }
+
 function countNeighborMines(grid, row, col) {
     var count = 0;
     for (var i = -1; i <= 1; i++) {

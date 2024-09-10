@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import Draggable from 'react-draggable';
 import { Resizable } from 're-resizable';
 import './ResizableWindow.css';
@@ -6,30 +6,28 @@ import './ResizableWindow.css';
 interface ResizableWindowProps {
   title: string;
   onClose: () => void;
-  children: React.ReactNode;
   appName: string;
-  initialWidth: string | number;
-  initialHeight: string | number;
+  children: ReactNode;
+  initialWidth: number;
+  initialHeight: number;
   isFullscreenOnMobile?: boolean;
   className?: string;
   style?: React.CSSProperties;
   isIframeApp?: boolean;
-  onFocus?: () => void;
 }
 
-export function ResizableWindow({
+const ResizableWindow: React.FC<ResizableWindowProps> = ({
   title,
   onClose,
-  children,
   appName,
+  children,
   initialWidth,
   initialHeight,
   isFullscreenOnMobile = true,
-  className,
-  style,
-  isIframeApp = false,
-  onFocus
-}: ResizableWindowProps) {
+  className = '',
+  style = {},
+  isIframeApp = false
+}) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [windowSize, setWindowSize] = useState({ width: initialWidth, height: initialHeight });
 
@@ -43,19 +41,14 @@ export function ResizableWindow({
     ? { width: '100%', height: 'calc(100% - 40px)', position: 'fixed' as const, top: 40, left: 0 }
     : windowSize;
 
-  const desktopOffset = !isMobile ? 40 : 0; // 40px offset for desktop to account for menu bar
-  const mobileOffset = isMobile ? 40 : 0;
-
-  const windowClassName = `window ${appName} ${isMobile && isFullscreenOnMobile ? 'fullscreen-mobile' : ''} ${isIframeApp ? 'iframe-app' : ''} ${className || ''}`;
-
   return (
     <Draggable handle=".window-header" disabled={isMobile && isFullscreenOnMobile}>
       <Resizable
         size={windowStyle}
         onResizeStop={(e, direction, ref, d) => {
           setWindowSize(prevSize => ({
-            width: typeof prevSize.width === 'number' ? prevSize.width + d.width : prevSize.width,
-            height: typeof prevSize.height === 'number' ? prevSize.height + d.height : prevSize.height
+            width: prevSize.width + d.width,
+            height: prevSize.height + d.height
           }));
         }}
         minWidth={200}
@@ -72,12 +65,7 @@ export function ResizableWindow({
           topLeft: !isMobile
         }}
       >
-        <div 
-          className={windowClassName}
-          style={{...style, zIndex: 1200, marginTop: isMobile ? mobileOffset : desktopOffset}}
-          onMouseDown={onFocus}
-          onTouchStart={onFocus}
-        >
+        <div className={`window ${appName} ${className} ${isIframeApp ? 'iframe-app' : ''}`} style={{ ...style, zIndex: 1200 }}>
           <div className="window-header">
             <span>{title}</span>
             <button className="close-button" onClick={onClose}>×</button>
@@ -85,9 +73,10 @@ export function ResizableWindow({
           <div className="window-content">
             {children}
           </div>
-          <div className="resize-handle"></div>
         </div>
       </Resizable>
     </Draggable>
   );
-}
+};
+
+export default ResizableWindow;

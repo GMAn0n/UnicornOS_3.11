@@ -15,13 +15,17 @@ export async function saveScore(score: number) {
   }
 }
 
-export async function getTopScores(limit = 10) {
+export async function getTopScores(limitCount = 10) {
   const scoresRef = collection(db, 'scores');
-  const q = query(scoresRef, orderBy('score', 'desc'), limit(limit));
+  const q = query(scoresRef, orderBy('score', 'desc'), limit(limitCount));
   
   try {
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => doc.data());
+    return querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      const score = parseFloat(data.score);
+      return { playerID: data.playerID, score };
+    });
   } catch (error) {
     console.error('Error fetching top scores:', error);
     return [];

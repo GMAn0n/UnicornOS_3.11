@@ -1,51 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { ResizableWindow } from './ResizableWindow';
 import './Notepad.css';
 
 interface NotepadProps {
   onClose: () => void;
-  className?: string;
-  style?: React.CSSProperties;
-  isIframeApp?: boolean;
+  className: string;
+  style: React.CSSProperties;
+  isIframeApp: boolean;
+  onFocus: () => void;
 }
 
-export default function Notepad({ onClose, className, style, isIframeApp }: NotepadProps) {
-  const [content, setContent] = useState('');
+const Notepad: React.FC<NotepadProps> = ({ className, style, onFocus }) => {
+  const [text, setText] = useState('');
 
   useEffect(() => {
-    // Load content from localStorage when the component mounts
-    const savedContent = localStorage.getItem('notepadContent');
-    if (savedContent) {
-      setContent(savedContent);
+    const savedText = localStorage.getItem('notepadText');
+    if (savedText) {
+      setText(savedText);
     }
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newContent = e.target.value;
-    setContent(newContent);
-    // Save content to localStorage whenever it changes
-    localStorage.setItem('notepadContent', newContent);
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newText = e.target.value;
+    setText(newText);
+    localStorage.setItem('notepadText', newText);
   };
 
   return (
-    <ResizableWindow
-      title="Notepad"
-      onClose={onClose}
-      appName="notepad"
-      className={className}
-      style={style}
-      initialWidth={400}
-      initialHeight={500}
-      isIframeApp={isIframeApp}
-    >
-      <div className="notepad">
-        <textarea
-          value={content}
-          onChange={handleChange}
-          placeholder="Type your notes here..."
-          className="notepad-textarea"
-        />
-      </div>
-    </ResizableWindow>
+    <div className={`notepad ${className}`} style={style} onClick={onFocus}>
+      <textarea
+        value={text}
+        onChange={handleTextChange}
+        placeholder="Start typing..."
+        className="notepad-textarea"
+      />
+    </div>
   );
-}
+};
+
+export default Notepad;

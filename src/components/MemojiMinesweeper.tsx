@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { ResizableWindow } from './ResizableWindow';
+import ResizableWindow from './ResizableWindow';
 import './MemojiMinesweeper.css';
-import { ref, onValue, set, push, DataSnapshot } from 'firebase/database';
+import { ref, onValue, set, push } from 'firebase/database';
 import { database } from '../firebaseConfig';
 
-interface MemojiMinesweeperProps {
-  onClose: () => void;
-  className?: string;
-  style?: React.CSSProperties;
-  isIframeApp?: boolean;
-}
+// Add these at the top of the file
+const GRID_SIZE = 10;
+const MINE_COUNT = 15;
+const EMOJIS = ['😀', '😎', '🤔', '🤨', '😮', '😴', '🤯', '🥳', '😇', '🤠'];
 
 interface Cell {
   isMine: boolean;
@@ -21,14 +19,19 @@ interface Cell {
 
 interface Player {
   id: string;
+  name: string;
+  score: number;
   color: string;
 }
 
-const GRID_SIZE = 18;
-const MINE_COUNT = 40;
-const EMOJIS = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇'];
+interface MemojiMinesweeperProps {
+  onClose: () => void;
+  className?: string;
+  style?: React.CSSProperties;
+  isIframeApp?: boolean;
+}
 
-export default function MemojiMinesweeper({ onClose, className, style, isIframeApp }: MemojiMinesweeperProps) {
+const MemojiMinesweeper: React.FC<MemojiMinesweeperProps> = ({ onClose, className, style, isIframeApp }) => {
   const [grid, setGrid] = useState<Cell[][]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
   const [playerId, setPlayerId] = useState<string | null>(null);
@@ -100,7 +103,7 @@ export default function MemojiMinesweeper({ onClose, className, style, isIframeA
     const gameRef = ref(database, 'memojiMinesweeper');
     console.log('Database reference created:', gameRef);
     
-    const unsubscribe = onValue(gameRef, (snapshot: DataSnapshot) => {
+    const unsubscribe = onValue(gameRef, (snapshot) => {
       console.log('Received data from Firebase:', snapshot.val());
       const data = snapshot.val();
       
@@ -117,7 +120,7 @@ export default function MemojiMinesweeper({ onClose, className, style, isIframeA
               console.log('New grid set in database');
               setGrid(newGrid);
             })
-            .catch((error) => console.error('Error setting new grid:', error));
+            .catch((error: Error) => console.error('Error setting new grid:', error));
         }
         
         if (data.players && typeof data.players === 'object') {
@@ -128,7 +131,7 @@ export default function MemojiMinesweeper({ onClose, className, style, isIframeA
           console.log('Players data is missing or invalid. Initializing empty players object.');
           set(ref(database, 'memojiMinesweeper/players'), {})
             .then(() => console.log('Empty players object set in database'))
-            .catch((error) => console.error('Error setting empty players object:', error));
+            .catch((error: Error) => console.error('Error setting empty players object:', error));
         }
 
         setGameOver(data.gameOver || false);
@@ -146,7 +149,7 @@ export default function MemojiMinesweeper({ onClose, className, style, isIframeA
             console.log('Initial state set in database');
             setGrid(initialState.grid);
           })
-          .catch((error) => console.error('Error setting initial state:', error));
+          .catch((error: Error) => console.error('Error setting initial state:', error));
       }
     }, (error: any) => {
       console.error('Firebase error:', error);
@@ -233,18 +236,18 @@ export default function MemojiMinesweeper({ onClose, className, style, isIframeA
       setGrid(newGrid);
       setGameOver(false);
       setGameWon(false);
-    }).catch((error) => console.error('Error starting new game:', error));
+    }).catch((error: Error) => console.error('Error starting new game:', error));
   };
 
   return (
-    <ResizableWindow 
-      title="Multiplayer Memoji Minesweeper" 
-      onClose={onClose} 
+    <ResizableWindow
+      title="Multiplayer Memoji Minesweeper"
+      onClose={onClose}
       appName="memojiminesweeper"
-      className={`${className} desktop-offset`}
+      initialWidth={800}
+      initialHeight={800}
+      className={className}
       style={style}
-      initialWidth={windowSize.width}
-      initialHeight={windowSize.height}
       isIframeApp={isIframeApp}
     >
       <div className="memoji-minesweeper">
@@ -311,3 +314,5 @@ function countNeighborMines(grid: Cell[][], row: number, col: number): number {
   }
   return count;
 }
+
+export default MemojiMinesweeper;

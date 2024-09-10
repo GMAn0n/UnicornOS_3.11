@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { getTopScores } from '../utils/leaderboard';
+import React, { useState, useEffect } from 'react';
+import { DocumentData } from 'firebase/firestore';
 
 interface Score {
   playerID: string;
@@ -10,9 +10,14 @@ const Leaderboard: React.FC = () => {
   const [scores, setScores] = useState<Score[]>([]);
 
   useEffect(() => {
+    // Fetch scores from Firebase
     const fetchScores = async () => {
-      const topScores = await getTopScores();
-      setScores(topScores);
+      // ... fetch logic
+      const fetchedScores: DocumentData[] = []; // Replace with actual fetched data
+      setScores(fetchedScores.map(doc => ({
+        playerID: doc.playerID,
+        score: doc.score
+      })));
     };
     fetchScores();
   }, []);

@@ -2,7 +2,8 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface AppContextType {
   currentApp: string | null;
-  launchApp: (appName: string) => void;
+  launchApp: (app: string) => void;
+  closeApp: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -14,12 +15,16 @@ interface AppProviderProps {
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [currentApp, setCurrentApp] = useState<string | null>(null);
 
-  const launchApp = (appName: string) => {
-    setCurrentApp(appName);
+  const launchApp = (app: string) => {
+    setCurrentApp(app);
+  };
+
+  const closeApp = () => {
+    setCurrentApp(null);
   };
 
   return (
-    <AppContext.Provider value={{ currentApp, launchApp }}>
+    <AppContext.Provider value={{ currentApp, launchApp, closeApp }}>
       {children}
     </AppContext.Provider>
   );

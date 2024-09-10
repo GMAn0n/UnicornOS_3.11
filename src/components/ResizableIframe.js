@@ -1,3 +1,6 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState } from 'react';
+import './ResizableIframe.css';
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -9,9 +12,6 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState } from 'react';
-import './ResizableIframe.css';
 export function ResizableIframe(_a) {
     var src = _a.src, title = _a.title, onClose = _a.onClose;
     var _b = useState({ width: 800, height: 600 }), size = _b[0], setSize = _b[1];

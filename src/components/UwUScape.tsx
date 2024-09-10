@@ -1,33 +1,26 @@
 import React from 'react';
-import { ResizableWindow } from './ResizableWindow';
 import './UwUScape.css';
 
 interface UwUScapeProps {
   onClose: () => void;
-  className?: string;
-  style?: React.CSSProperties;
-  isIframeApp?: boolean;
+  className: string;
+  style: React.CSSProperties;
+  isIframeApp: boolean;
+  onFocus: () => void;
 }
 
-export default function UwUScape({ onClose, className, style, isIframeApp }: UwUScapeProps) {
+const UwUScape: React.FC<UwUScapeProps> = ({ className, style, onFocus }) => {
   return (
-    <ResizableWindow
-      title="UwUScape"
-      onClose={onClose}
-      appName="uwuscape"
-      className={className}
-      style={style}
-      initialWidth="80%"
-      initialHeight="80%"
-      isIframeApp={isIframeApp}
-    >
-      <div className="uwuscape-container">
-        <iframe
-          src="https://uwu.direct"
-          title="UwUScape"
-          className="uwuscape-iframe"
-        />
-      </div>
-    </ResizableWindow>
+    <div className={`uwuscape ${className}`} style={style} onClick={onFocus}>
+      <iframe
+        src="https://uwu.direct"
+        title="UwUScape"
+        width="100%"
+        height="100%"
+        frameBorder="0"
+      />
+    </div>
   );
-}
+};
+
+export default UwUScape;

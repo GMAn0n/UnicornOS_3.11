@@ -1,60 +1,58 @@
 import React, { useState } from 'react';
-import { ResizableWindow } from './ResizableWindow';
+import ResizableWindow from './ResizableWindow';
 import './GuestBuwuk.css';
 
 interface GuestBuwukProps {
   onClose: () => void;
+  className?: string;
+  style?: React.CSSProperties;
+  isIframeApp?: boolean;
 }
 
-export default function GuestBuwuk({ onClose }: GuestBuwukProps) {
+const GuestBuwuk: React.FC<GuestBuwukProps> = ({ onClose, className, style, isIframeApp }) => {
   const [guestName, setGuestName] = useState('');
-  const [guestMessage, setGuestMessage] = useState('');
-  const [entries, setEntries] = useState<{ name: string; message: string }[]>([]);
+  const [message, setMessage] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (guestName && guestMessage) {
-      setEntries([...entries, { name: guestName, message: guestMessage }]);
-      setGuestName('');
-      setGuestMessage('');
-    }
+    // Handle guest book submission
+    console.log(`Guest: ${guestName}, Message: ${message}`);
+    setGuestName('');
+    setMessage('');
   };
 
   return (
-    <ResizableWindow 
-      title="Guest Buwuk" 
-      onClose={onClose} 
+    <ResizableWindow
+      title="Guest Buwuk"
+      onClose={onClose}
       appName="guestbuwuk"
-      initialWidth={500}
-      initialHeight={600}
+      initialWidth={400}
+      initialHeight={500}
+      className={className}
+      style={style}
+      isIframeApp={isIframeApp}
     >
       <div className="guest-buwuk">
-        <h2>Guest Buwuk</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Your Name"
             value={guestName}
             onChange={(e) => setGuestName(e.target.value)}
+            placeholder="Your Name"
             required
           />
           <textarea
-            placeholder="Your Message"
-            value={guestMessage}
-            onChange={(e) => setGuestMessage(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Leave a message"
             required
-          ></textarea>
+          />
           <button type="submit">Submit</button>
         </form>
-        <div className="entries">
-          {entries.map((entry, index) => (
-            <div key={index} className="entry">
-              <h3>{entry.name}</h3>
-              <p>{entry.message}</p>
-            </div>
-          ))}
-        </div>
+        {/* Display guest book entries here */}
       </div>
     </ResizableWindow>
   );
-}
+};
+
+export default GuestBuwuk;

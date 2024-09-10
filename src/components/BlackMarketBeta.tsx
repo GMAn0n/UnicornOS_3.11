@@ -1,33 +1,26 @@
 import React from 'react';
-import { ResizableWindow } from './ResizableWindow';
 import './BlackMarketBeta.css';
 
 interface BlackMarketBetaProps {
   onClose: () => void;
-  className?: string;
-  style?: React.CSSProperties;
-  isIframeApp?: boolean;
+  className: string;
+  style: React.CSSProperties;
+  isIframeApp: boolean;
+  onFocus: () => void;
 }
 
-export default function BlackMarketBeta({ onClose, className, style, isIframeApp }: BlackMarketBetaProps) {
+const BlackMarketBeta: React.FC<BlackMarketBetaProps> = ({ className, style, onFocus }) => {
   return (
-    <ResizableWindow
-      title="Black Market Beta"
-      onClose={onClose}
-      appName="blackmarketbeta"
-      className={className}
-      style={style}
-      initialWidth="80%"
-      initialHeight="80%"
-      isIframeApp={isIframeApp}
-    >
-      <div className="black-market-beta-container">
-        <iframe
-          src="https://uwublkmktalphatestpreviewhos.uwu-direct.pages.dev/"
-          title="Black Market Beta"
-          className="black-market-beta-iframe"
-        />
-      </div>
-    </ResizableWindow>
+    <div className={`black-market-beta ${className}`} style={style} onClick={onFocus}>
+      <iframe
+        src="https://uwublkmktalphatestpreviewhos.uwu-direct.pages.dev/"
+        title="Black Market Beta"
+        width="100%"
+        height="100%"
+        frameBorder="0"
+      />
+    </div>
   );
-}
+};
+
+export default BlackMarketBeta;

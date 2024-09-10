@@ -1,3 +1,8 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+import { useState, useEffect } from 'react';
+import { ResizableWindow } from './ResizableWindow';
+import './Bluwumbuwurg.css';
+
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -9,10 +14,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import { jsx as _jsx } from "react/jsx-runtime";
-import { useState, useEffect } from 'react';
-import { ResizableWindow } from './ResizableWindow';
-import './Bluwumbuwurg.css';
+
 export default function Bluwumbuwurg(_a) {
     var onClose = _a.onClose;
     var _b = useState({ width: 800, height: 600 }), windowSize = _b[0], setWindowSize = _b[1];

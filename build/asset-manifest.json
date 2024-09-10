@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.23596014.css",
+    "main.js": "/static/js/main.1a959853.js",
+    "static/media/ChicagoFLF.ttf": "/static/media/ChicagoFLF.155ecfce03714f348552.ttf",
+    "index.html": "/index.html",
+    "main.23596014.css.map": "/static/css/main.23596014.css.map",
+    "main.1a959853.js.map": "/static/js/main.1a959853.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.23596014.css",
+    "static/js/main.1a959853.js"
+  ]
+}

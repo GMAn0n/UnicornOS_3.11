@@ -1,0 +1,29 @@
+.resizeHandle {
+  position: absolute;
+  background-color: transparent;
+  z-index: 1000;
+}
+
+.resizeRight {
+  top: 0;
+  right: -5px;
+  width: 10px;
+  height: 100%;
+  cursor: ew-resize;
+}
+
+.resizeBottom {
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  cursor: ns-resize;
+}
+
+.resizeBottomRight {
+  bottom: -5px;
+  right: -5px;
+  width: 10px;
+  height: 10px;
+  cursor: nwse-resize;
+}

@@ -6,37 +6,38 @@
 }
 
 .App {
-  font-family: 'ChicagoFLF', 'Courier New', monospace;
-  background-color: #858cb9;
-  color: #000;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  text-align: center;
+  height: 100vh;
+  position: relative;
+}
+
+.menu-bar {
+  /* Add styles for your menu bar */
+  background-color: #f0f0f0;
+  padding: 10px;
+  z-index: 1000;
 }
 
 .desktop {
+  height: 100%;
+  position: relative;
   flex: 1;
   position: relative;
+  height: 100vh;
   overflow: hidden;
-  padding-top: 40px; /* Add padding to account for the menu bar */
   z-index: 1;
 }
 
 .hard-disk-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
   position: absolute;
   top: 20px;
   right: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #000;
-  font-family: 'ChicagoFLF', 'Courier New', monospace;
-  z-index: 10;
-  padding: 10px;
-  transition: transform 0.3s;
 }
 
 .hard-disk-icon:hover {
@@ -53,6 +54,15 @@
   text-align: center;
   max-width: 64px;
   word-wrap: break-word;
+}
+
+.hard-disk-icon span[role="img"] {
+  font-size: 48px;
+  display: block;
+}
+
+.hard-disk-icon span:last-child {
+  font-size: 14px;
 }
 
 .file-explorer {
@@ -81,15 +91,6 @@
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   z-index: 1100;
-}
-
-.menu-bar {
-  z-index: 1000;
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #000;
-  padding: 5px;
-  display: flex;
-  align-items: center;
 }
 
 .window {

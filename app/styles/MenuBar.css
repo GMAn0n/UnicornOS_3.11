@@ -1,0 +1,27 @@
+.menu-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background-color: #000000;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 1001;
+}
+
+.menu-item {
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  text-decoration: underline;
+}
+
+.os-version {
+  margin-left: auto;
+  font-size: 14px;
+}

@@ -1,33 +1,26 @@
 import React from 'react';
-import { ResizableWindow } from './ResizableWindow';
 import './VirtualUnicorn.css';
 
 interface VirtualUnicornProps {
   onClose: () => void;
-  className?: string;
-  style?: React.CSSProperties;
-  isIframeApp?: boolean;
+  className: string;
+  style: React.CSSProperties;
+  isIframeApp: boolean;
+  onFocus: () => void;
 }
 
-export default function VirtualUnicorn({ onClose, className, style, isIframeApp }: VirtualUnicornProps) {
+const VirtualUnicorn: React.FC<VirtualUnicornProps> = ({ className, style, onFocus }) => {
   return (
-    <ResizableWindow
-      title="Virtual Unicorn"
-      onClose={onClose}
-      appName="virtualunicorn"
-      className={className}
-      style={style}
-      initialWidth="80%"
-      initialHeight="80%"
-      isIframeApp={isIframeApp}
-    >
-      <div className="virtual-unicorn-container">
-        <iframe
-          src="https://unicorn.meme"
-          title="Virtual Unicorn"
-          className="virtual-unicorn-iframe"
-        />
-      </div>
-    </ResizableWindow>
+    <div className={`virtual-unicorn ${className}`} style={style} onClick={onFocus}>
+      <iframe
+        src="https://unicorn.meme"
+        title="Virtual Unicorn"
+        width="100%"
+        height="100%"
+        frameBorder="0"
+      />
+    </div>
   );
-}
+};
+
+export default VirtualUnicorn;

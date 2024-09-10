@@ -1,3 +1,6 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+import { ResizableWindow } from './ResizableWindow';
+import './Terminal.css';
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -9,9 +12,6 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import { jsx as _jsx } from "react/jsx-runtime";
-import { ResizableWindow } from './ResizableWindow';
-import './Terminal.css';
 export default function Terminal(_a) {
     var onClose = _a.onClose;
     return (_jsx(ResizableWindow, __assign({ title: "Terminal", onClose: onClose, appName: "terminal", initialWidth: 800, initialHeight: 600 }, { children: function (_a) {

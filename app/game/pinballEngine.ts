@@ -1,5 +1,5 @@
-import { updatePhysics } from './physics';
-import { drawBoard, drawBall } from './renderer';
+// import { updatePhysics } from './physics';
+// import { drawBoard, drawBall } from './renderer';
 
 let canvas: HTMLCanvasElement;
 let ctx: CanvasRenderingContext2D;
@@ -16,14 +16,14 @@ export function initializeGame(
 }
 
 export function updateGame() {
-  updatePhysics(ballPosition, ballVelocity);
+  // updatePhysics(ballPosition, ballVelocity);
   // Update game state, check collisions, update score, etc.
 }
 
 export function renderGame(ctx: CanvasRenderingContext2D) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBoard(ctx);
-  drawBall(ctx, ballPosition);
+  // drawBoard(ctx);
+  // drawBall(ctx, ballPosition);
 }
 
 // Add functions for left bumper, right bumper, and launch ball
